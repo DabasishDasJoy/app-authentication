@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/UserContex";
 
 const Register = () => {
+  const { createUser } = useContext(AuthContext);
+
   const handleOnSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
     const name = form.name.value;
+
+    createUser(email, password)
+      .then((res) => {
+        console.log(res.user);
+      })
+      .catch((error) => console.error(error));
   };
   return (
     <div
@@ -18,8 +27,8 @@ const Register = () => {
       {/* form */}
       <div className="hero-content w-full flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Login now!</h1>
-          <p className="py-6">Plase login to get access.</p>
+          <h1 className="text-5xl font-bold">Register now!</h1>
+          <p className="py-6">Plase Register to get access.</p>
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <form onSubmit={handleOnSubmit} className="card-body">
